@@ -11,15 +11,22 @@ public class Main {
     public static void main(String ... args) {
         GameField gameField = new GameField();
         Screen screen = new Screen(gameField);
-        for(int i=0; i<65535; i++) {
+        int interval = 120_000;
+        for(int i=1; i<65535; i++) {
             System.out.println(i + " ... 起動");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(interval / 100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (i % 4 == 0) {
-                screen.downBlock();
+            System.out.println("interval = " + interval);
+            screen.downBlock();
+            if (i % 30 == 0) {
+                if (interval > 50000) {
+                    interval -= (700000 / i);
+                } else {
+                    interval -= (500000 / i);
+                }
             }
             if (screen.isNotAllMove()) {
                 screen.createBlock();

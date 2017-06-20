@@ -38,7 +38,7 @@ public class Screen extends JFrame {
     }
 
     public void createBlock() {
-        int x = gameField.col / 2, y = gameField.tateBanpei - 1;
+        int x = gameField.col / 2 - 1, y = gameField.tateBanpei - 1;
         if (!gameField.field[y][x].isDefaultOneBlock()) { // 何らかのブロック
             if (!(gameField.field[y][x].getBlock() instanceof SubOneBlock)) { // SubOneの場合は、ひとまず見ないようにする
                 if (!gameField.field[y][x].getBlock().canMoveDown(gameField, x, y)) {

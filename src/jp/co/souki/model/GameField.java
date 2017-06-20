@@ -25,11 +25,14 @@ public class GameField {
 
     public final int col = 10;
 
-    private List<Class<? extends OneBlock>> list = Arrays.asList(
+    private List<Class<? extends OneBlock>> blockTemplateList = Arrays.asList(
+            JBlock.class,
             LBlock.class,
+            SBlock.class,
             SquareBlock.class,
             TBlock.class,
-            TetrisBlock.class
+            TetrisBlock.class,
+            ZBlock.class
     );
     /**
      * 縦の番兵
@@ -227,12 +230,12 @@ public class GameField {
     }
 
     private void setTetrisBlocks(int x, int y) {
-        int size = list.size();
+        int size = blockTemplateList.size();
         int defaultNum = 99;
         int rand = ((int) (Math.random() * size));
         rand = (rand > (size - 1)) ? defaultNum : rand;
 
-        Class<? extends OneBlock> clazz = list.get(rand);
+        Class<? extends OneBlock> clazz = blockTemplateList.get(rand);
         setBlocks(clazz, x, y);
     }
 

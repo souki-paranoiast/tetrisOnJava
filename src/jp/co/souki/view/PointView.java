@@ -14,7 +14,7 @@ public class PointView<BLOCKS extends OneBlock> extends JLabel {
         this.block = block;
         setBorder(new BevelBorder(BevelBorder.RAISED));
         setOpaque(true);
-        setText(String.valueOf(id));
+//        setText(String.valueOf(id));
         repaintBackground();
     }
 
