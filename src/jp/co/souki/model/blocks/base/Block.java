@@ -1,9 +1,10 @@
-package jp.co.souki.model;
+package jp.co.souki.model.blocks.base;
 
 //
 //  ブロックの形状毎にクラス作成してみる
 //
 
+import jp.co.souki.model.GameField;
 import jp.co.souki.util.Common;
 import jp.co.souki.util.Point;
 import jp.co.souki.view.PointView;

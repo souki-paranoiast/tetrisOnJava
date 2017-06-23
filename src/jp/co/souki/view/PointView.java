@@ -1,7 +1,7 @@
 package jp.co.souki.view;
 
-import jp.co.souki.model.DefaultOneBlock;
-import jp.co.souki.model.OneBlock;
+import jp.co.souki.model.blocks.base.DefaultOneBlock;
+import jp.co.souki.model.blocks.base.OneBlock;
 
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;

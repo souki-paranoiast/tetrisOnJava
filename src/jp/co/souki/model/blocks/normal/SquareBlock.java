@@ -1,4 +1,6 @@
-package jp.co.souki.model;
+package jp.co.souki.model.blocks.normal;
+
+import jp.co.souki.model.blocks.base.Block;
 
 import java.awt.*;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  *     ..
  * </pre>
  */
-public class SquareBlock extends Block<SquareBlock>  {
+public class SquareBlock extends Block<SquareBlock> {
 
     public static final List<Relation> relationList = Relation.of(new int[][][] {
             {

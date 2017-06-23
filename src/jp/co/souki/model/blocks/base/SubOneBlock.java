@@ -1,5 +1,6 @@
-package jp.co.souki.model;
+package jp.co.souki.model.blocks.base;
 
+import jp.co.souki.model.GameField;
 import jp.co.souki.util.Point;
 
 import java.util.List;

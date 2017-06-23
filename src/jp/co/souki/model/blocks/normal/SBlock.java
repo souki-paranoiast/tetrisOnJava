@@ -1,32 +1,34 @@
-package jp.co.souki.model;
+package jp.co.souki.model.blocks.normal;
+
+import jp.co.souki.model.blocks.base.Block;
 
 import java.awt.*;
 import java.util.List;
 
 /**
- * Zブロックをモデリングします。
+ * Sブロックをモデリングします。
  * <pre>
- *    ..
  *     ..
+ *    ..
  * </pre>
  */
-public class ZBlock extends Block<ZBlock> {
+public class SBlock extends Block<SBlock> {
     public static final List<Relation> relationList = Relation.of(new int[][][] {
             {
+                    {-1,  0},
                     {-1,  1},
-//                  { 0,  0},
-                    { 0,  1},
-                    { 1,  0},
-            },
-            {
                     { 0, -1},
 //                  { 0,  0},
-                    { 1,  0},
+            },
+            {
+                    {-1,  0},
+//                  { 0,  0},
+                    { 0,  1},
                     { 1,  1},
             },
     });
-    public ZBlock(int x, int y) {
-        super(x, y, Color.RED);
+    public SBlock(int x, int y) {
+        super(x, y, Color.GREEN);
     }
 
     @Override

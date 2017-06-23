@@ -1,5 +1,11 @@
 package jp.co.souki.model;
 
+import jp.co.souki.model.blocks.BlockEnum;
+import jp.co.souki.model.blocks.base.Block;
+import jp.co.souki.model.blocks.base.DefaultOneBlock;
+import jp.co.souki.model.blocks.base.OneBlock;
+import jp.co.souki.model.blocks.base.SubOneBlock;
+import jp.co.souki.util.Common;
 import jp.co.souki.util.MyConsumer;
 import jp.co.souki.util.MyPredicate;
 import jp.co.souki.view.PointView;
@@ -25,15 +31,10 @@ public class GameField {
 
     public final int col = 10;
 
-    private List<Class<? extends OneBlock>> blockTemplateList = Arrays.asList(
-            JBlock.class,
-            LBlock.class,
-            SBlock.class,
-            SquareBlock.class,
-            TBlock.class,
-            TetrisBlock.class,
-            ZBlock.class
-    );
+    /** 点数 */
+    public int score = 0;
+
+    public static final int[] points = {10, 35, 105, 250, 390, 720, 1270};
     /**
      * 縦の番兵
      */
@@ -84,13 +85,21 @@ public class GameField {
         for (int ri = field.length - 1; ri >= 0; ri--) {
             if (Arrays.stream(field[ri]).allMatch(p -> !p.isDefaultOneBlock())) {
                 delList.add(Integer.valueOf(ri));
-                // TODO 点数とか数えますかねぇ
             }
         }
         int delListSize = delList.size();
         if (delListSize == 0) {
             return;
         }
+
+        int addScore;
+        if (delListSize > points.length) {
+            addScore = (int)(points[points.length - 1] * 1.8);
+        } else {
+            addScore = points[delListSize - 1];
+        }
+        score += addScore;
+
         int[][] moveRelation = makeRelation(delList);
         for (int[] loop : moveRelation) { // TODO リファクタリング
             int current = loop[0];
@@ -230,12 +239,18 @@ public class GameField {
     }
 
     private void setTetrisBlocks(int x, int y) {
-        int size = blockTemplateList.size();
+        List<? extends OneBlock> blockList;
+        if (Common.isNormal()) {
+            blockList = BlockEnum.NORMAL.clazzList;
+        } else {
+            blockList = BlockEnum.APPENDIX.clazzList;
+        }
+        int size = blockList.size();
         int defaultNum = 99;
         int rand = ((int) (Math.random() * size));
         rand = (rand > (size - 1)) ? defaultNum : rand;
 
-        Class<? extends OneBlock> clazz = blockTemplateList.get(rand);
+        Class<? extends OneBlock> clazz = Common.cast(blockList.get(rand));
         setBlocks(clazz, x, y);
     }
 

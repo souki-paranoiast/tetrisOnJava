@@ -1,4 +1,6 @@
-package jp.co.souki.model;
+package jp.co.souki.model.blocks.normal;
+
+import jp.co.souki.model.blocks.base.Block;
 
 import java.awt.*;
 import java.util.List;

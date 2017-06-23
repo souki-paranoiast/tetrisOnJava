@@ -1,4 +1,6 @@
-package jp.co.souki.model;
+package jp.co.souki.model.blocks.base;
+
+import jp.co.souki.model.GameField;
 
 import java.awt.*;
 import java.util.ArrayList;
