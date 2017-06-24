@@ -31,10 +31,12 @@ public class GameField {
 
     public final int col = 10;
 
+    private boolean isGameOver = false;
+
     /** 点数 */
     public int score = 0;
 
-    public static final int[] points = {10, 35, 105, 250, 390, 720, 1270};
+    public static final int[] points = {10, 42, 105, 250, 390, 720, 1270};
     /**
      * 縦の番兵
      */
@@ -50,6 +52,9 @@ public class GameField {
         }
     }
 
+    public boolean isGameOver() {
+        return isGameOver;
+    }
     /**
      * ブロックを生成する。
      *
@@ -94,7 +99,8 @@ public class GameField {
 
         int addScore;
         if (delListSize > points.length) {
-            addScore = (int)(points[points.length - 1] * 1.8);
+            int diff = delListSize - points.length;
+            addScore = (int)(points[points.length - 1] * 1.8 * diff);
         } else {
             addScore = points[delListSize - 1];
         }
@@ -139,16 +145,18 @@ public class GameField {
                 }
             }
         }
+        isGameOver = true;
     }
 
     /**
      * ブロックを下に移動します。下への移動は各ブロックの実装によります
      */
-    public void downBlock() {
+    public void downBlock(boolean isAction) {
         System.out.println("downBlock ... ");
         this.moveSpecifiedDirectionReversedPosition(
                 (gameField, x, y) -> field[y][x].getBlock().canMoveDown(this, x, y),
-                (gameField, x, y) -> field[y][x].getBlock().moveDown(this, x, y)
+                (gameField, x, y) -> field[y][x].getBlock().moveDown(this, x, y),
+                isAction
         );
     }
 
@@ -159,7 +167,8 @@ public class GameField {
         System.out.print("R ");
         this.moveSpecifiedDirectionReversedPosition(
                 (gameField, x, y) -> field[y][x].getBlock().canMoveRight(this, x, y),
-                (gameField, x, y) -> field[y][x].getBlock().moveRight(this, x, y)
+                (gameField, x, y) -> field[y][x].getBlock().moveRight(this, x, y),
+                false
         );
     }
 
@@ -220,8 +229,9 @@ public class GameField {
      *
      * @param predicate 条件
      * @param consumer  実アクション
+     * @param isAction Actionによる起動かどうか。後付けParam
      */
-    private void moveSpecifiedDirectionReversedPosition(MyPredicate<GameField> predicate, MyConsumer<GameField> consumer) {
+    private void moveSpecifiedDirectionReversedPosition(MyPredicate<GameField> predicate, MyConsumer<GameField> consumer, boolean isAction) {
         // 右下から見る。この辺り読みづらいからStream使いたいなぁ
         for (int ri = field.length - 1; ri >= 0; ri--) {
             PointView[] s = field[ri];
@@ -234,6 +244,9 @@ public class GameField {
                     continue;
                 }
                 consumer.apply(this, ci, ri);
+                if (isAction) {
+                    score++;
+                }
             }
         }
     }
