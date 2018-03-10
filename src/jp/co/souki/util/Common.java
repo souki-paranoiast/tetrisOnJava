@@ -19,7 +19,7 @@ public class Common {
     }
 
     @SuppressWarnings(value = "all")
-    public static <T> T cast(Object o) {
-        return (T)o;
+    public static <T,R> R cast(T o) {
+        return (R)o;
     }
 }
